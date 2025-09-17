@@ -54,7 +54,7 @@ void worker_thread(int id) {
         //  Read and save all frames until we get an empty frame
         //  In this example there is only 1 but it could be more
         std::string address = s_recv(worker);
-	receive_empty_message(worker);
+	    receive_empty_message(worker);
         //  Get request, send reply
         std::string request = s_recv(worker);
         std::cout << "Worker: " << request << std::endl;
@@ -87,11 +87,11 @@ int main(int argc, char *argv[])
     int client_nbr = 0;
     for (; client_nbr < 10; client_nbr++) {
         std::thread t(client_thread, client_nbr);
-	t.detach();
+	    t.detach();
     }
     for (int worker_nbr = 0; worker_nbr < 3; worker_nbr++) {
 	    std::thread t (worker_thread, worker_nbr);
-            t.detach();
+        t.detach();
     }
     //  Logic of LRU loop
     //  - Poll backend always, frontend only if 1+ worker ready
@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
 
             //  Queue worker address for LRU routing
             worker_queue.push(s_recv(backend));
-	    receive_empty_message(backend);
+	        receive_empty_message(backend);
 
             //  Third frame is READY or else a client reply address
             std::string client_addr = s_recv(backend);
